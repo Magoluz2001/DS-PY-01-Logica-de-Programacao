@@ -1,52 +1,35 @@
 import random
 from arquivo_palavras import lista_palavras
 
-# Dados internos
-erros = 0
-letras_restantes = 0
-palavra_escolhida = []
-condicao = True
+chances = 5
+chutes = []
+condicao = False
+forca = str(lista_palavras[random.randrange(len(lista_palavras))])
 
-# Dados externos
-letra_usuario = str
+while not(condicao):
+    for letra in forca:
+        if (letra.lower() in chutes):
+            print(letra, end=" ")
+        else:
+            print("_", end=" ")
+    print("")
+    condicao = True
 
-#Seleciona a palavra e exibe o jogo no terminal para o usuário
-palavra_escolhida = lista_palavras[random.randrange(len(lista_palavras))]
-letras_restantes = len(palavra_escolhida)
+    chute = input(f"Você tem {chances} chances. Tente um letra: ")
+    chutes.append(chute.lower())
+    if (chute.lower() not in forca.lower()):
+        chances -= 1
+        if chances == 0:
+            break
 
-print(f"""Bem vind@ ao jogo da forca!!
+    condicao = True
+    for chute in forca:
+        if (chute.lower() not in chutes):
+            condicao = False
 
-A sua palavra tem {len(palavra_escolhida)} letras""")
-
-while (condicao):
-
-    letra_usuario = input("Insira uma letra:")
-    
-    if not(letra_usuario in palavra_escolhida):
-
-        erros += 1
-
-        letra_usuario = input(f"""A letra {letra_usuario} não existe nessa palavra. Você ainda tem {erros} chances.
-        
-        Insira uma letra:""")
-    
-    else:
-        
-        letras_restantes -= 1
-
-        palavra_usuario = input(f"""Você acertou uma letra. Continue até decifrar a palavra.
-        
-        Insira uma letra:""")
-
-
-
-    
-
-
-
-    
-
-
-    
+if condicao == False:
+    print("Você descobriu a palavra.")
+else:
+    print("Suas chances acabaram. Fim de jogo.")
 
 
